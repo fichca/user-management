@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user</title>
+</head>
+<body>
+<div th:replace="_header"></div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+
+            <form th:action="@{/user/{id}/edit(id= ${user.id})}" method="post">
+
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">Old first name: <span th:text="${user.firstName}"></span></label>
+                    <input type="text" name="firstName" placeholder="write new first name" class="form-control" id="firstName" aria-describedby="firstName"
+                           minlength="1" maxlength="16">
+                </div>
+
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Old last mame: <span th:text="${user.lastName}"></span></label>
+                    <input type="text" name="lastName" placeholder="write new last name" class="form-control" id="lastName" aria-describedby="lastName"
+                           minlength="1" maxlength="16">
+                </div>
+
+                <div class="mb-3">
+                    <label for="role" class="form-label">Old role: <span th:text="${user.role}"></span></label>
+                    <select class="form-select" id="role" name="role" aria-label="Default select example">
+                        <option disabled>Select a new role</option>
+                        <option th:each="item: ${T(by.control.usermanagement.entity.Role).values()}" th:value="${item}" th:text="${item}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="userStatus" class="form-label">Old status: <span th:text="${user.userStatus}"></span></label>
+                    <select class="form-select" id="userStatus" name="userStatus" aria-label="Default select example">
+                        <option disabled>Select a new status</option>
+                        <option th:each="item: ${T(by.control.usermanagement.entity.UserStatus).values()}" th:value="${item}" th:text="${item}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                <button type="submit" class="btn btn-dark" value="Sign Up">Edit user</button>
+                </div>
+
+                <div class="alert alert-warning" th:if="${updateError} != null" role="alert">
+                    <span th:text="${updateError}"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

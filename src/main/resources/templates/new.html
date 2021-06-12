@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Create new user</title>
+    </head>
+<body>
+<div th:replace="_header"></div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+
+            <form th:action="@{/user/new}" method="post" th:object="${user}">
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text"  name="username" class="form-control" id="username"
+                           aria-describedby="username" minlength="3" maxlength="16" required>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('username')}" role="alert">
+                        <span  th:errors="*{username}"></span>
+                    </div>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="password"
+                           minlength="3"
+                           maxlength="16" required>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('password')}" role="alert">
+                        <span th:errors="*{password}"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">Name</label>
+                    <input type="text" name="firstName" class="form-control" id="firstName"
+                           aria-describedby="firstName"
+                           minlength="1" maxlength="16" required>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" role="alert">
+                        <span  th:errors="*{firstName}"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Name</label>
+                    <input type="text" name="lastName" class="form-control" id="lastName"
+                           aria-describedby="lastName"
+                           minlength="1" maxlength="16" required>
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}" role="alert">
+                        <span th:errors="*{lastName}"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="role" class="form-label">Select a role</label>
+                    <select class="form-select" id="role" name="role" aria-label="Default select example">
+                        <option disabled>Select a role</option>
+                        <option th:each="item: ${T(by.control.usermanagement.entity.Role).values()}" th:value="${item}"
+                                th:text="${item}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="userStatus" class="form-label">Select a status</label>
+                    <select class="form-select" id="userStatus" name="userStatus" aria-label="Default select example">
+                        <option disabled>Select a status</option>
+                        <option th:each="item: ${T(by.control.usermanagement.entity.UserStatus).values()}"
+                                th:value="${item}" th:text="${item}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-dark" value="Sign Up">Add</button>
+                </div>
+                <div class="alert alert-warning" th:if="${save} != null" role="alert">
+                    <span th:text="${save}"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

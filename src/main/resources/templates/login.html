@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<div th:replace="_header"></div>
+<!--<div th:if="${param.error}">-->
+<!--    Invalid username and password.-->
+<!--</div>-->
+
+<!--<form th:action="@{/login}" method="post">-->
+<!--    <label> User Name : <input type="text" name="username"/> </label>-->
+<!--    <label> Password: <input type="password" name="password"/> </label>-->
+<!--    <input type="submit" value="Sign In"/>-->
+<!--</form>-->
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+
+            <form th:action="@{/login}" method="post">
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" placeholder="write username" name="username" class="form-control" id="username"
+                           aria-describedby="username" minlength="3" maxlength="16" required>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" placeholder="write password" name="password" class="form-control" id="password"
+                           minlength="3"
+                           maxlength="16" required>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-dark" value="Sign Up">Sign In</button>
+                </div>
+                <div class="alert alert-warning" th:if="${param.error}" role="alert">
+                    Invalid username and password.
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

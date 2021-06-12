@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User list</title>
+</head>
+<body>
+<div th:replace="_header"></div>
+
+<div class="container">
+    <div class="row justify-content-center mb-6 mt-6">
+        <div class="col-6">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Filtration:</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="/posts/byCategory" id="navbarDropdown"
+                                   role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Role
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item"
+                                           th:each="item: ${T(by.control.usermanagement.entity.Role).values()}"
+                                           th:href="@{/user/role(role=${item})}"><span th:text="${item}"></span></a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/user/username}" method="get">
+                        <div class="row">
+                            <div class="col">
+                                <input class="form-control mr-sm-2" type="text" name="username" placeholder="Search"
+                                       aria-label="Search" minlength="1" maxlength="16" required>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+    <div class="row justify-content-center mb-5 mt-5" th:each="user: ${users}" th:value="${user}">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">ID <span th:text="${user.id}"></span></h5>
+                <p class="card-text">User name: <span th:text="${user.username}"></span></p>
+            </div>
+            <div class="card-body">
+                <a th:href="@{/user/{id}(id= ${user.id})}" class="btn btn-primary">View user</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-5 mt-5" th:if="${countUsersPage > 1}">
+        <div class="col-md-auto">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination pagination-sm">
+
+                    <div th:each="nomder : ${#numbers.sequence(1, countUsersPage)}">
+
+                        <li class="page-item active" th:if="${pageNumber == nomderStat.count}">
+                            <a class="page-link" th:href="@{/user/(pageNumber=${nomderStat.count})}"><span
+                                    th:text="${nomderStat.count}"></span></a>
+                        </li>
+
+                        <li class="page-item" th:if="${pageNumber != nomderStat.count}">
+                            <a class="page-link" th:href="@{/user/(pageNumber=${nomderStat.count})}"><span
+                                    th:text="${nomderStat.count}"></span></a>
+                        </li>
+                    </div>
+
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

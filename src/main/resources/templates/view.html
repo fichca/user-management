@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>View user</title>
+</head>
+<body>
+<div th:replace="_header"></div>
+<div class="container">
+    <div class="row justify-content-center mb-5 mt-5">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">ID <span th:text="${user.id}"></span></h5>
+                <p class="card-text">User name: <span th:text="${user.username}"></span></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">First name: <span th:text="${user.firstName}"></span></li>
+                <li class="list-group-item">Last name: <span th:text="${user.lastName}"></span></li>
+                <li class="list-group-item">Role: <span th:text="${user.role}"></span></li>
+                <li class="list-group-item">User status: <span th:text="${user.userStatus}"></span></li>
+                <li class="list-group-item">Date of creation: <p th:text="${user.date}"></p></li>
+            </ul>
+            <div sec:authorize="hasAuthority('ADMIN')" class="card-body" >
+                <a th:href="@{/user/{id}/edit(id= ${user.id})}" class="btn btn-primary">Edit user</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
